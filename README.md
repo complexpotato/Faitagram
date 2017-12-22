@@ -18,44 +18,42 @@ I am not responsible for your action.
 
 Get the requirements:
 
-  python setup.py
+    python setup.py
 
 Command:
 
-  python faitagram -s [service] -u [username] -w [wordlist] -d [delay(Optional)]
+    python faitagram -s [service] -u [username] -w [wordlist] -d [delay(Optional)]
 
 Examples:
 
   
 
-  python faitagram -s facebook -u MeMeBigBoy@gmail.com -w /root/passwd.txt -d 10
+    python faitagram -s facebook -u MeMeBigBoy@gmail.com -w /root/passwd.txt -d 10
 
-  (Execute faitagram) (facebook)  (Email of the target)  (wordlist path)   (delay[10secs])
+    (Execute faitagram) (facebook)  (Email of the target)  (wordlist path)   (delay[10secs])
 
 
-  python faitagram -s instagram -u justin -w wlist
+    python faitagram -s instagram -u justin -w wlist
 
-  (Execute faitagram) (Instagram) (username) (wordlist)
+    (Execute faitagram) (Instagram) (username) (wordlist)
   
 
-  python faitagram -s twitter -u hellohahahha -w wlist -d 3
+    python faitagram -s twitter -u hellohahahha -w wlist -d 3
 
-  (Execute faitagram) (Twitter)  (Username)  (wordlist) (delay[3secs])
+    (Execute faitagram) (Twitter)  (Username)  (wordlist) (delay[3secs])
   
 
 Memorize:
 
-  -s, -u, -w parameters are musts, and -d is optional.
+    -s, -u, -w parameters are musts, and -d is optional.
 
-  -d in default is 1 sec.
+    -d in default is 1 sec.
 
-  In facebook, you would have to type the email in the -u.
+    In facebook, you would have to type the email in the -u.
 
-  In facebook, the script will ask you the Name of the target.
+    In facebook, the script will ask you the Name of the target.
 
 Specific tutorial will be on NullByte, I would put a link after I make a tutorial:
 
-
-
-  [here]
+    [here]
 
