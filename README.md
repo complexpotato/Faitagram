@@ -55,5 +55,8 @@ Memorize:
 
 Specific tutorial will be on NullByte, I would put a link after I make a tutorial:
 
-    [here]
+   [here]
 
+How it works:
+
+   This script uses selenium web driver, and Xvfb and pyvirtualdisplay to make the web driver invisible so you can keep doing work, this script also uses STEM as the proxy.
