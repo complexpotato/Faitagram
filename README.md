@@ -55,7 +55,7 @@ Memorize:
 
 Specific tutorial will be on NullByte, I would put a link after I make a tutorial:
 
-   [here]
+   https://null-byte.wonderhowto.com/forum/hacking-facebook-twitter-instagram-account-passwords-with-bruteforce-0181808/
 
 How it works:
 
