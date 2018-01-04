@@ -93,6 +93,9 @@ def main():
 
 
     os.system("clear && service tor start")
+    os.system("service tor restart")
+    os.system("service tor stop")
+    os.system("service tor start")
 
 
 
@@ -306,7 +309,7 @@ class Bruter(object):
 
                 j+=1
 
-                if j == 3:
+                if j == 2:
 
                    self.setIP()
 
