@@ -14,8 +14,6 @@ from selenium.webdriver.common.keys import Keys
 
 from selenium.webdriver.support.ui import WebDriverWait
 
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
-
 from stem import Signal
 
 from stem.control import Controller
@@ -104,6 +102,7 @@ def main():
 
 class Bruter(object):
 
+
     def __init__(self, service, username, wordlist, delay):
 
         self.service = service
@@ -116,7 +115,7 @@ class Bruter(object):
 
 
 
-    def stopTOR(self):
+    def stopTOR(self):   # Stoping Tor
 
         driver.close()
 
@@ -126,7 +125,7 @@ class Bruter(object):
 
 
 
-    def Tor_Check(self):
+    def Tor_Check(self): # STEM Controller checking
 
         controller = connect()
 
@@ -138,7 +137,7 @@ class Bruter(object):
 
 
 
-    def setIP(self):
+    def setIP(self):    # Changing Public IP 
 
         with Controller.from_port(port = 9051) as controller:
 
@@ -148,7 +147,7 @@ class Bruter(object):
 
 
 
-    def execute(self):
+    def execute(self):  # Connection Between def main() 
 
         print(B + "- Checking Username Existence -\n" + W)
 
