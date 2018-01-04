@@ -15,7 +15,7 @@ fp = open("/etc/tor/torrc")
 fx = open("/etc/tor/torrc2","w+")
 hashtag = "#"
 for i, line in enumerate(fp):
-    if i+1 == 57 or i+1 == 60 or i+1 == 61:
+    if i+1 == 57 or i+1 == 61:
         line = line.replace(hashtag,"")
     fx.write(line)
 fp.close()
