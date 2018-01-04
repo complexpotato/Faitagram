@@ -92,7 +92,7 @@ def main():
 
 
 
-    os.system("clear && serivce tor start")
+    os.system("clear && service tor start")
 
 
 
@@ -101,6 +101,7 @@ def main():
 
 
 class Bruter(object):
+
 
 
     def __init__(self, service, username, wordlist, delay):
