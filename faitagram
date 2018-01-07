@@ -78,15 +78,7 @@ G = '\033[32m'
 
 
 
-O = '\033[33m'
-
-
-
-B = '\033[34m' 
-
-
-
-P = '\033[35m' 
+O = '\033[33m' 
 
 
 
@@ -230,8 +222,6 @@ class Bruter(object):
 
 
 
-
-
     def stopTOR(self):   # Stoping Tor
 
 
@@ -263,14 +253,14 @@ class Bruter(object):
         if not controller:
 
 
+
             self.stopTOR()
+
 
 
             exit(1)
 
-
-
-        print(P +("- Bruteforce starting(Delay = %s) -\n" % self.delay) + W)
+        print("- Bruteforce starting ( Delay = %s sec ) -\n" % self.delay)
 
 
 
@@ -302,15 +292,13 @@ class Bruter(object):
 
 
 
-        print(W + "- Checking Username Existence -\n")
-
 
 
         if self.usercheck(self.username, self.service) == 1:
 
 
 
-            print(R + "Error : Username Does not Exist\n" + W)
+            print("[ " + R + "Error" + W + " ]" + " Username Does not Exist\n" + W)
 
 
 
@@ -322,11 +310,11 @@ class Bruter(object):
 
 
 
-           print(G + "  Username Check Successful!\n" + W)
+            print("[ " + G + "ok" + W + " ]" + " Checking Account Existence\n")
 
 
 
-        self.webBruteforce(self.username, self.wordlist, self.service, self.delay)
+            self.webBruteforce(self.username, self.wordlist, self.service, self.delay)
 
 
 
@@ -362,15 +350,13 @@ class Bruter(object):
 
 
 
-                 print(O + "Please Enter The NAME Of The Target : " + W)
+
+
+                 fb_name = raw_input(O + "Please Enter The NAME Of The Facebook Account : " + W)
 
 
 
-                 a = raw_input()
-
-
-
-                 driver.get("https://www.facebook.com/public/" + a)
+                 driver.get("https://www.facebook.com/public/" + fb_name)
 
 
 
@@ -606,7 +592,7 @@ class Bruter(object):
 
                 
 
-                my_ip = urlopen('http://ip.42.pl/raw').read()
+                my_ip = urlopen("http://ip.42.pl/raw").read()
 
 
 
