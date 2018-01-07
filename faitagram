@@ -76,9 +76,7 @@ class Bruter(object):
 
         driver.close()
 
-        os.system("m -rf tmp/ geckodriver.log")
-
-        tor_process.kill()
+        os.system("rm -rf tmp/ geckodriver.log && service tor stop")
 
         exit(1)
 
