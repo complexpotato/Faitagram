@@ -1,5 +1,5 @@
 # Faitagram
-A Bruter for Facebook, Twitter, and Instagram. Made with python, developed from brut3k1t.
+A Bruter for FAcebook, twITter, and InstAGRAM. Made with python, developed from brut3k1t.
 
 [You will need python!]
 
