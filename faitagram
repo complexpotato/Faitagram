@@ -94,7 +94,7 @@ class Bruter(object):
         print("- Bruteforce starting ( Delay = %s sec ) -\n" % self.delay)
 
 
-   def setIP(self):    # Changing Public IP 
+    def setIP(self):    # Changing Public IP 
 
         with Controller.from_port(port = 9051) as controller:
 
@@ -103,7 +103,7 @@ class Bruter(object):
             controller.signal(Signal.NEWNYM)
 
 
-  def execute(self):  # Connection Between def main() 
+    def execute(self):  # Connection Between def main() 
   
         if self.usercheck(self.username, self.service) == 1:
 
@@ -118,7 +118,7 @@ class Bruter(object):
             self.webBruteforce(self.username, self.wordlist, self.service, self.delay)
 
 
-def usercheck(self, username, service):
+    def usercheck(self, username, service):
 
         display = Display(visible=0, size=(800, 600))
 
