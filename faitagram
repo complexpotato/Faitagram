@@ -1,5 +1,5 @@
  # -*- coding: utf-8 -*-
-import smtplib, argparse, paramiko, mechanize, telnetlib, ftplib, os, sys
+import argparse, mechanize, os, sys
 from time import sleep
 from subprocess import call
 from xmpp import *
