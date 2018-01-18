@@ -150,7 +150,7 @@ class Bruter(object):
 
        display.start()
 
-       driver = webdriver.Firefox()
+       driver = webdriver.Firefox(executable_path="/usr/local/bin/geckodriver)
 
        self.Tor_Check()
 
