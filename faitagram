@@ -22,8 +22,6 @@ R = '\033[31m'  # Red
 G = '\033[32m'  # Green
 O = '\033[33m'  # Orange
 
-controller = Controller.from_port(port=9051)
-
 
 def main():
 
@@ -106,9 +104,12 @@ class Bruter(object):
 
     def Tor_Check(self): # STEM Controller checking
 
-        check_status_controller = connect()
+        
+        global controller
 
-        if not check_status_controller:
+        controller = Controller.from_port(port = 9051)
+
+        if not controller:
 
             sys.stdout.write("[ " + R + "Error" + W + " ]" + " Stem controller not running" + W)
 
