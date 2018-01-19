@@ -2,7 +2,6 @@
 import argparse, mechanize, os, sys, socks, socket
 from time import sleep
 from subprocess import call
-from xmpp import *
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
@@ -102,22 +101,12 @@ class Bruter(object):
         exit(1)
 
 
-    def Tor_Check(self): # STEM Controller checking
+    def Stem_start(self): # STEM Controller checking
 
         
         global controller
 
         controller = Controller.from_port(port = 9051)
-
-        if not controller:
-
-            sys.stdout.write("[ " + R + "Error" + W + " ]" + " Stem controller not running" + W)
-
-            self.stopTOR()
-
-            exit(1)
-
-        sys.stdout.write("[ " + G + "ok" + W + " ]" + " Stem controller running\n")
 
         controller.authenticate(password=Hash)
 
@@ -154,9 +143,9 @@ class Bruter(object):
 
        global driver       
 
-       driver = webdriver.Firefox(executable_path="/usr/local/bin/geckodriver")
+       driver = webdriver.Firefox()
 
-       self.Tor_Check()
+       self.Stem_start()
 
        try:
 
