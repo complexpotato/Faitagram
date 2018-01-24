@@ -12,15 +12,15 @@ print OS_bit
 
 if OS_bit == 64:
 
-    os.system("wget https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux64.tar.gz")
-    os.system("tar -xvzf geckodriver-v0.19.0-linux64.tar.gz")
-    os.system("rm geckodriver-v0.19.0-linux64.tar.gz")
+    os.system("wget https://github.com/mozilla/geckodriver/releases/download/v0.17.0/geckodriver-v0.17.0-linux64.tar.gz")
+    os.system("tar -xvzf geckodriver-v0.17.0-linux64.tar.gz")
+    os.system("rm geckodriver-v0.17.0-linux64.tar.gz")
 
 elif OS_bit == 32:
 
-    os.system("wget https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux32.tar.gz")
-    os.system("tar -xvzf geckodriver-v0.19.0-linux32.tar.gz")
-    os.system("rm geckodriver-v0.19.0-linux32.tar.gz")
+    os.system("wget https://github.com/mozilla/geckodriver/releases/download/v0.17.0/geckodriver-v0.17.0-linux32.tar.gz")
+    os.system("tar -xvzf geckodriver-v0.17.0-linux32.tar.gz")
+    os.system("rm geckodriver-v0.17.0-linux32.tar.gz")
 
 os.system("chmod +x geckodriver")
 os.system("mv geckodriver /usr/local/bin/")
