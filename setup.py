@@ -13,8 +13,8 @@ print OS_bit
 if OS_bit == 64:
 
     os.system("wget https://github.com/mozilla/geckodriver/releases/download/v0.16.1/geckodriver-v0.16.1-linux64.tar.gz")
-    os.system("tar -xvzf geckodriver-v0.17.0-linux64.tar.gz")
-    os.system("rm geckodriver-v0.17.0-linux64.tar.gz")
+    os.system("tar -xvzf geckodriver-v0.16.1-linux64.tar.gz")
+    os.system("rm geckodriver-v0.16.1-linux64.tar.gz")
 
 elif OS_bit == 32:
 
