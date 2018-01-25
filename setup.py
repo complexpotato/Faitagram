@@ -8,7 +8,7 @@ os.system("pip install -U selenium && sudo apt-get install firefoxdriver -y")
 os.system("pip install mechanize &&  pip install requests && pip install xmpppy==0.5.0rc1")
 os.system("pip install stem && pip install pyvirtualdisplay && apt-get install xvfb")
 
-print OS_bit
+print("\n \n {} \n \n".format(OS_bit))
 
 if OS_bit == 64:
 
@@ -27,10 +27,10 @@ os.system("mv geckodriver /usr/local/bin/")
 
 fp = open("/etc/tor/torrc")
 fx = open("/etc/tor/torrc2","w+")
-hashtag = "#"
+
 for i, line in enumerate(fp):
     if i+1 == 57 or i+1 == 61:
-        line = line.replace(hashtag,"")
+        line = line.replace("#","")
     fx.write(line)
 fp.close()
 fx.close()
