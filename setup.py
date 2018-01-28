@@ -3,7 +3,7 @@ import os, math, sys
 OS_bit = (round(math.log(sys.maxint,2)+1))  # get the bit
 
 os.system("sudo apt-get install python-pip && sudo apt-get install tor")   # installing dependencies
-os.system("pip install -U selenium && sudo apt-get install firefoxdriver -y")
+os.system("pip install -U selenium")
 os.system("pip install mechanize && pip install requests")
 os.system("pip install stem && pip install pyvirtualdisplay && apt-get install xvfb")
 
