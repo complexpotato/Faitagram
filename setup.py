@@ -4,8 +4,8 @@ OS_bit = (round(math.log(sys.maxint,2)+1))  # get the bit
 
 os.system("sudo apt-get install python-pip && sudo apt-get install tor")   # installing dependencies
 os.system("pip install -U selenium")
-os.system("pip install mechanize && pip install requests")
-os.system("pip install stem && pip install pyvirtualdisplay && apt-get install xvfb")
+os.system("pip install sockspy")
+os.system("pip install pyvirtualdisplay && apt-get install xvfb")
 
 print("\n \n {} \n \n".format(OS_bit))
 
@@ -17,9 +17,7 @@ version  = result[marker:].splitlines()[0]     # spliting the output, the versio
 a,b,c = version.split(".")                     # a is the var with the aa
 os.remove('tmp')                               # removing the temporary file
 
-
 FirefoxVersion = int(a)
-
 second = 0
 
 if OS_bit == 64:
