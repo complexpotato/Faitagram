@@ -20,15 +20,6 @@ os.remove('tmp')                               # removing the temporary file
 FirefoxVersion = int(a)
 second = 0
 
-if OS_bit == 64:
-
-    bit = 64
-
-elif OS_bit == 32:
-
-    bit = 32
-
-
 if FirefoxVersion  < 53:
 
     first = 16
