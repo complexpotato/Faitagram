@@ -33,6 +33,7 @@ if FirefoxVersion  < 53:
 
     first = 16
     second = 1
+    OS_bit = 64
 
 elif FirefoxVersion == 53 or FirefoxVersion == 54:
 
@@ -42,8 +43,8 @@ elif FirefoxVersion > 54:
 
     first = 19
 
-os.system("wget https://github.com/mozilla/geckodriver/releases/download/v0.{}.{}/geckodriver-v0.{}.{}-linux{}.tar.gz".format(first,second,first,second,bit))
-os.system("tar -xvzf geckodriver-v0.{}.{}-linux{}.tar.gz".format(first,second,bit))
-os.system("rm geckodriver-v0.{}.{}-linux{}.tar.gz".format(first,second,bit))
+os.system("wget https://github.com/mozilla/geckodriver/releases/download/v0.{}.{}/geckodriver-v0.{}.{}-linux{}.tar.gz".format(first,second,first,second,OS_bit))
+os.system("tar -xvzf geckodriver-v0.{}.{}-linux{}.tar.gz".format(first,second,OS_bit))
+os.system("rm geckodriver-v0.{}.{}-linux{}.tar.gz".format(first,second,OS_bit))
 os.system("chmod +x geckodriver")
 os.system("mv geckodriver /usr/local/bin/")
