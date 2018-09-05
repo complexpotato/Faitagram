@@ -259,4 +259,5 @@ if __name__ == '__main__':
 
         os.system("rm -rf tmp/ geckodriver.log && service tor stop")
 
-        exit(1)
+        exit(1) 
+        python setup.py
