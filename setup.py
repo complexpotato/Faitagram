@@ -5,7 +5,7 @@ import os, math, sys
 os.system("sudo apt-get install python-pip && sudo apt-get install tor")   # installing dependencies
 os.system("pip install -U selenium")
 os.system("pip install Pysocks")
-os.system("pip install pyvirtualdisplay && apt-get install xvfb")
+os.system("pip install pyvirtualdisplay && sudo apt-get install xvfb")
 
 #print("\n \n {} \n \n".format(OS_bit))
 
