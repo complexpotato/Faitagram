@@ -60,3 +60,4 @@ Specific tutorial will be on NullByte, I would put a link after I make a tutoria
 How it works:
 
    This script uses selenium web driver, and Xvfb and pyvirtualdisplay to make the web driver invisible so you can keep doing work, this script also uses STEM as the proxy.
+[![Run on Repl.it](https://repl.it/badge/github/Juniorn1003/Faitagram)](https://repl.it/github/Juniorn1003/Faitagram)

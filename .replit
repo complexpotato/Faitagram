@@ -1,0 +1,2 @@
+language = "python3"
+run = " chmod +x faitagram && chmod +x setup.py"
