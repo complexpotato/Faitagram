@@ -1,4 +1,4 @@
-# Faitagram
+# Faitagram - Don't Use This (Doesn't work anymore)-
 A Bruter for FAcebook, twITter, and InstAGRAM. Made with python, developed from brut3k1t.
 
 [You will need python!]
