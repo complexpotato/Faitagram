@@ -1,3 +1,4 @@
 https://github.com/Juniorn1003/Faitagram.git
 python setup.py
-python faitagram -s instagram -u aras.iroobashin -w wlists -d delay
+python faitagram -s instagram -u najwa_zukri -w /root/password.txt -d parameter
+
